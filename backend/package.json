@@ -8,10 +8,10 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "node --watch --env-file=.env src/server.js",
-    "dev:worker": "node --watch --env-file=.env src/worker.js",
-    "start": "node src/server.js",
-    "start:worker": "node src/worker.js",
+    "dev": "node --watch --env-file=.env server.js",
+    "dev:worker": "node --watch --env-file=.env worker.js",
+    "start": "node server.js",
+    "start:worker": "node worker.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
