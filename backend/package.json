@@ -1,0 +1,61 @@
+{
+  "name": "oroom-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Oroom API (Express) and worker (BullMQ)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/server.js",
+    "dev:worker": "node --watch --env-file=.env src/worker.js",
+    "start": "node src/server.js",
+    "start:worker": "node src/worker.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:api": "newman run ../postman/oroom.postman_collection.json"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@aws-sdk/client-s3": "^3.1163.0",
+    "@aws-sdk/s3-request-presigner": "^3.1163.0",
+    "@bull-board/api": "^9.11.0",
+    "@bull-board/express": "^9.11.0",
+    "@sentry/node": "^11.11.0",
+    "bullmq": "^6.7.1",
+    "connect-mongo": "^6.0.0",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.3",
+    "express-session": "^1.19.0",
+    "googleapis": "^189.0.0",
+    "helmet": "^8.3.0",
+    "ioredis": "^6.0.0",
+    "mongoose": "^9.12.0",
+    "node-ical": "^0.27.4",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pdf-parse": "^2.4.5",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
+    "posthog-node": "^5.21.2",
+    "resend": "^6.37.0",
+    "stripe": "^23.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "^5.1.0",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "newman": "^6.2.3",
+    "pino-pretty": "^13.2.0",
+    "prettier": "^3.9.10",
+    "supertest": "^7.3.1",
+    "vitest": "^5.1.0"
+  }
+}
