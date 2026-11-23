@@ -1,0 +1,111 @@
+<mxfile host="Electron" pages="2">
+  <diagram name="Page-1" id="oHyU5z0uCWUgPO8TUShS">
+    <mxGraphModel dx="1001" dy="1206" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="K_fFy5AfcDCuhlzd0uM_-1" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontColor=default;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 153, 0));&quot;&gt;Oroom&lt;/span&gt;&lt;/h1&gt;&lt;p&gt;System Design / Workflow&amp;nbsp;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-24" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="100" as="sourcePoint" />
+            <mxPoint x="30" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-25" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Functional / nonfunctional requirements" vertex="1">
+          <mxGeometry height="120" width="120" x="30" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-26" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontColor=light-dark(#000000,#009900);" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Functional&amp;nbsp;&lt;/h1&gt;&lt;ol dir=&quot;ltr&quot;&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;User can sign up and log in with Google.&lt;/span&gt;&lt;/li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;User can connect sources: Google Calendar, Brightspace, Gmail/Outlook (forwarding).&lt;/span&gt;&lt;/li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;System pulls assignments and events from connected sources automatically.&lt;/span&gt;&lt;/li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;System estimates time per task and books it into free calendar slots, without double-booking.&lt;/span&gt;&lt;/li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;User can approve or skip suggestions, or turn on auto-approve.&lt;/span&gt;&lt;/li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;li&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;System updates the plan when a source changes (due date moved, assignment removed).&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;strong&gt;Supporting&lt;/strong&gt;&lt;br&gt;&lt;br&gt;7. User can add, edit and delete tasks manually.&lt;br&gt;&lt;br&gt;8. User can run a timer on a task.&lt;br&gt;&lt;br&gt;9. User can upload notes/PDFs, and the system extracts tasks from them.&lt;br&gt;&lt;br&gt;10. User gets reminders before tasks and deadlines.&lt;/span&gt;&lt;/p&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;p dir=&quot;ltr&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;strong&gt;Out of scope:&lt;/strong&gt; billing, Team plan, mobile app.&lt;/span&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="430" width="550" x="200" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-27" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="150" y="180" as="sourcePoint" />
+            <mxPoint x="180" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-28" edge="1" parent="1" source="azwWJesyBAn2kC0bRHv_-25" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.4574" as="geometry">
+            <Array as="points">
+              <mxPoint x="125" y="500" />
+              <mxPoint x="75" y="450" />
+            </Array>
+            <mxPoint x="75" y="500" as="sourcePoint" />
+            <mxPoint x="50" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-29" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 153, 0));&quot;&gt;Non Functional&lt;/span&gt;&lt;/h1&gt;&lt;ul dir=&quot;ltr&quot;&gt;&lt;li&gt;&lt;strong&gt;Freshness:&lt;/strong&gt; Brightspace changes show up within 15 min, Google Calendar within 1–2 min. First import within 1 min of connecting.&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;strong&gt;Correctness:&lt;/strong&gt; Never double-books. When a source changes, the plan reschedules within 2 min.&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;strong&gt;Reliability:&lt;/strong&gt; No pulled item is lost; failed syncs retry automatically; no duplicates.&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;strong&gt;Security:&lt;/strong&gt; Tokens and Brightspace links encrypted; Oroom only edits events it created; users see only their own data.&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;em&gt;Starting targets, measured later with Sentry and Pino.&amp;nbsp;&lt;br&gt;&lt;br&gt;Note:&amp;nbsp;&lt;/em&gt;Pino is a &lt;strong&gt;logging library for Node.js&lt;/strong&gt;. Think of it as a better &lt;code dir=&quot;ltr&quot;&gt;console.log&lt;/code&gt; for your server.&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;" vertex="1">
+          <mxGeometry height="290" width="455" x="20" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-31" edge="1" parent="1" source="azwWJesyBAn2kC0bRHv_-25" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.4704" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="490" />
+              <mxPoint x="640" y="490" />
+            </Array>
+            <mxPoint x="640" y="540" as="sourcePoint" />
+            <mxPoint x="870" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-32" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontColor=light-dark(#000000,#009900);" value="&lt;h1&gt;Architecture&lt;/h1&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="800" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-33" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Client - React Dashboard" vertex="1">
+          <mxGeometry height="220" width="200" x="970" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-35" parent="azwWJesyBAn2kC0bRHv_-33" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Clerk: Login / Sign Up&amp;nbsp;" vertex="1">
+          <mxGeometry height="40" width="140" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="azwWJesyBAn2kC0bRHv_-34" parent="azwWJesyBAn2kC0bRHv_-33" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Stripe - Choose Pricing / Free Plan" vertex="1">
+          <mxGeometry height="40" width="120" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cwN4VymQmYRRBdnJpp_f-2" parent="azwWJesyBAn2kC0bRHv_-33" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Connectors" vertex="1">
+          <mxGeometry height="40" width="120" x="40" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="cwN4VymQmYRRBdnJpp_f-3" edge="1" parent="azwWJesyBAn2kC0bRHv_-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" x="-0.2499" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="60" />
+              <mxPoint x="260" y="20" />
+            </Array>
+            <mxPoint x="170" y="60" as="sourcePoint" />
+            <mxPoint x="260" y="-90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cwN4VymQmYRRBdnJpp_f-11" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1170" y="520" as="sourcePoint" />
+            <mxPoint x="1270" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OXTkxQUlIUwApQvLwkZ9-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="API Server&amp;nbsp;&lt;div&gt;&lt;br&gt;Express REST + webhooks&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="190" x="1290" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="6WjIvBJgaI02v3BcFrV6-1" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1480" y="530" as="sourcePoint" />
+            <mxPoint x="1560" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6WjIvBJgaI02v3BcFrV6-2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="MongoDB atlas -&amp;nbsp;&lt;div&gt;users, connections, tasks, events, subscription status, userId&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="170" x="1590" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="6WjIvBJgaI02v3BcFrV6-3" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1384.5" y="580" as="sourcePoint" />
+            <mxPoint x="1384.5" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="uhJhfLi__XwcRgXZZKJv" name="Page-2">
+    <mxGraphModel dx="1414" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
