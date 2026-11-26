@@ -1,46 +1,30 @@
-import mongoose from 'mongoose';
-
 // A source the user has linked: Google Calendar, Brightspace iCal feed, forwarded email.
-const connectionSchema = new mongoose.Schema(
-    {
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-        provider: {
-            type: String,
-            enum: ['google_calendar', 'brightspace', 'email'],
-            required: true,
-        },
-        status: {
-            type: String,
-            enum: ['active', 'error', 'disconnected'],
-            default: 'active',
-        },
+//
+// To add a connector (e.g. Canvas, Slack):
+//   1. Create models/connections/<name>.js with a schema for its own fields and
+//      `Connection.discriminator('<Name>Connection', schema, '<provider_key>')`.
+//   2. Add it to `connectionModels` below.
+// The shared fields, indexes, and the PROVIDERS list used by other models update from there.
+import Connection from './connections/base.js';
+import GoogleCalendarConnection from './connections/googleCalendar.js';
+import BrightspaceConnection from './connections/brightspace.js';
+import EmailConnection from './connections/email.js';
 
-        // Secrets are stored encrypted (AES-256-GCM, utils/crypto) and hidden from queries by default.
-        credentials: {
-            accessToken: { type: String, select: false },
-            refreshToken: { type: String, select: false },
-            expiresAt: Date,
-            icalUrl: { type: String, select: false }, // Brightspace feed link
-        },
+const connectionModels = {
+    google_calendar: GoogleCalendarConnection,
+    brightspace: BrightspaceConnection,
+    email: EmailConnection,
+};
 
-        // Google Calendar push channel (renewed by a scheduler before it expires)
-        watchChannel: {
-            id: String,
-            resourceId: String,
-            expiresAt: Date,
-        },
-        calendarId: String, // which Google calendar Oroom writes blocks into
-        syncToken: String, // Google incremental sync token
+export const PROVIDERS = Object.keys(connectionModels);
 
-        inboundAddress: String, // forwarding address, for provider 'email'
+// Use this to create a connection so the right provider fields are validated:
+//   await connectionModelFor('brightspace').create({ userId, icalUrl })
+export function connectionModelFor(provider) {
+    const model = connectionModels[provider];
+    if (!model) throw new Error(`Unknown connection provider: ${provider}`);
+    return model;
+}
 
-        lastSyncedAt: Date,
-        lastError: String,
-    },
-    { timestamps: true },
-);
-
-// One connection per provider per user
-connectionSchema.index({ userId: 1, provider: 1 }, { unique: true });
-
-export default mongoose.model('Connection', connectionSchema);
+export { GoogleCalendarConnection, BrightspaceConnection, EmailConnection };
+export default Connection;

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { PROVIDERS } from './Connection.js';
 
 // The raw thing pulled from a source (an iCal event, an email, an uploaded PDF), before AI extraction.
 const sourceItemSchema = new mongoose.Schema(
@@ -7,7 +8,7 @@ const sourceItemSchema = new mongoose.Schema(
         connectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Connection' }, // empty for uploads
         source: {
             type: String,
-            enum: ['google_calendar', 'brightspace', 'email', 'upload'],
+            enum: [...PROVIDERS, 'upload'], // stays in sync with the connectors in Connection.js
             required: true,
         },
 
