@@ -137,3 +137,6 @@ dist
 
 # draw.io backup files
 *.bkp
+
+#ignore claude folder showing up in commits 
+.claude/
