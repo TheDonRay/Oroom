@@ -17,6 +17,12 @@ const envSchema = z.object({
     CLERK_SECRET_KEY: z
         .string({ error: 'CLERK_SECRET_KEY is required (Clerk dashboard → API Keys)' })
         .startsWith('sk_', 'CLERK_SECRET_KEY must start with sk_'),
+    // Clerk → Configure → Webhooks → your endpoint → Signing Secret.
+    // Optional so the server can start before the endpoint exists; /webhooks/clerk returns 500 until it's set.
+    CLERK_WEBHOOK_SIGNING_SECRET: z
+        .string()
+        .startsWith('whsec_', 'CLERK_WEBHOOK_SIGNING_SECRET must start with whsec_')
+        .optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
