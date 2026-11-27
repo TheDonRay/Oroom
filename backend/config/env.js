@@ -10,6 +10,13 @@ const envSchema = z.object({
         .string({ error: 'MONGO_URI is required (copy it from Atlas → Connect → Drivers)' })
         .regex(/^mongodb(\+srv)?:\/\//, 'MONGO_URI must start with mongodb:// or mongodb+srv://'),
     MONGO_DB_NAME: z.string().min(1).default('oroom'),
+    // Clerk → Configure → API Keys. clerkMiddleware() reads these from process.env.
+    CLERK_PUBLISHABLE_KEY: z
+        .string({ error: 'CLERK_PUBLISHABLE_KEY is required (Clerk dashboard → API Keys)' })
+        .startsWith('pk_', 'CLERK_PUBLISHABLE_KEY must start with pk_'),
+    CLERK_SECRET_KEY: z
+        .string({ error: 'CLERK_SECRET_KEY is required (Clerk dashboard → API Keys)' })
+        .startsWith('sk_', 'CLERK_SECRET_KEY must start with sk_'),
 });
 
 const parsed = envSchema.safeParse(process.env);
