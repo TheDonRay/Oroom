@@ -6,6 +6,7 @@ import { env } from './config/env.js';
 import { notFound, errorHandler } from './middlewares/errorHandler.js';
 
 // import routes here
+import webhookRoutes from './routes/webhookRoutes.js';
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use(cors({
 }));
 
 // webhooks go here, BEFORE express.json(): signature checks need the raw body
-// app.use('/webhooks', webhookRoutes);
+app.use('/webhooks', webhookRoutes);
 
 app.use(express.json());
 

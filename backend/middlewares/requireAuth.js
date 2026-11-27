@@ -1,5 +1,6 @@
 import { getAuth } from '@clerk/express';
 import User from '../models/User.js';
+import { provisionUserFromClerk } from '../services/users.js';
 
 // Use on any route that needs a signed-in user. Sets req.user to the Mongo User.
 // Needs clerkMiddleware() to run earlier in the chain (see app.js).
@@ -10,11 +11,10 @@ export async function requireAuth(req, res, next) {
         return res.status(401).json({ error: 'Not signed in' });
     }
 
-    const user = await User.findOne({ clerkId: userId });
-    if (!user) {
-        // Signed in with Clerk, but the user.created webhook hasn't created them yet
-        return res.status(401).json({ error: 'Account not set up yet' });
-    }
+    // Normally the user.created webhook has already made this User. If it hasn't
+    // arrived yet (or failed), create them now from Clerk so they aren't locked out.
+    const user =
+        (await User.findOne({ clerkId: userId })) ?? (await provisionUserFromClerk(userId));
 
     req.user = user;
     next();
