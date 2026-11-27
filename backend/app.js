@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import { clerkMiddleware } from '@clerk/express';
 import { env } from './config/env.js';
 import { notFound, errorHandler } from './middlewares/errorHandler.js';
 
@@ -14,7 +15,15 @@ app.use(cors({
     origin: env.CLIENT_URL,
     credentials: true,
 }));
+
+// webhooks go here, BEFORE express.json(): signature checks need the raw body
+// app.use('/webhooks', webhookRoutes);
+
 app.use(express.json());
+
+// Reads the Clerk session token on every request (CLERK_SECRET_KEY / CLERK_PUBLISHABLE_KEY from env).
+// It doesn't block anything by itself; protect routes with middlewares/requireAuth.js.
+app.use(clerkMiddleware());
 
 // health route check
 app.get('/health', (req, res) => {
