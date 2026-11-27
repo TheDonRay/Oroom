@@ -24,6 +24,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1163.0",
     "@bull-board/api": "^9.11.0",
     "@bull-board/express": "^9.11.0",
+    "@clerk/express": "^2.1.99",
     "@sentry/node": "^11.11.0",
     "bullmq": "^6.7.1",
     "connect-mongo": "^6.0.0",
