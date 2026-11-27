@@ -4,12 +4,12 @@ Express API + BullMQ worker, one codebase, MVC layout. Plain JavaScript (ES modu
 
 ```
 backend/
-├── config/              # env loading, Mongo/Redis connections, Passport, Sentry/Pino setup
+├── config/              # env loading (Zod), Mongo/Redis connections, Sentry/Pino setup
 ├── models/              # (M) Mongoose schemas: User, Connection, SourceItem, Suggestion, Task,
 │                        #     CalendarEvent, TimerSession, Note, Activity, WebhookEvent
 ├── controllers/         # (C) request handlers: parse → call service → shape response
 ├── routes/              # Express routers mounted under /api/v1 (+ /webhooks, /events SSE)
-├── middlewares/         # auth guard, Zod validation, error handler, rate limits, webhook signature checks
+├── middlewares/         # requireAuth (Clerk), Zod validation, error handler, rate limits, webhook signature checks
 ├── validators/          # Zod schemas for request bodies, webhook payloads, AI output
 ├── services/            # business logic (controllers and job processors both call these)
 │   ├── connectors/      #   Brightspace iCal, Google Calendar, inbound email, notes

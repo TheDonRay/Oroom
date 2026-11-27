@@ -26,7 +26,8 @@ Oroom automatically pulls in your assignments, emails, updates and calendar even
 | --- | --- |
 | Language | JavaScript (ES modules), JSDoc for editor type hints |
 | Frontend | React, Vite, TanStack Query, React Router |
-| API | Node.js, Express, Zod, Passport (Google OAuth) |
+| Auth | Clerk (login / sign-up), synced to MongoDB via webhook |
+| API | Node.js, Express, Zod |
 | Worker | BullMQ on Redis |
 | Database | MongoDB Atlas with Mongoose |
 | File storage | Cloudflare R2 (presigned uploads) |
@@ -48,10 +49,12 @@ Two Node processes share one codebase:
 
 They communicate only through Redis queues. The worker publishes events to Redis pub/sub, and the API forwards them to the browser over SSE.
 
+**Auth:** users sign in with Clerk. The web app sends Clerk's session token as `Authorization: Bearer <token>`; `clerkMiddleware()` verifies it and `requireAuth` loads the matching `User` (by `clerkId`) onto `req.user`. Clerk's `user.created` / `user.updated` / `user.deleted` webhooks keep `users` in sync, and `requireAuth` creates the `User` on first request if the webhook hasn't arrived yet. Google OAuth is only used to connect Google Calendar, not to sign in.
+
 ```
 Web app ──HTTPS──▶ API (Express) ──enqueue──▶ Redis + BullMQ ──jobs──▶ Worker
    │                  │  ▲                                              │
-   │ presigned        │  └── webhooks (Stripe, inbound email,           ├──▶ Google Calendar, Claude,
+   │ presigned        │  └── webhooks (Clerk, Stripe, inbound email,    ├──▶ Google Calendar, Claude,
    ▼ upload           │       Google push)                              │    Brightspace, Stripe, Resend
 Cloudflare R2         └──────────── MongoDB Atlas ◀─────────────────────┘
 ```
@@ -113,20 +116,27 @@ pnpm dev                  # web, api and worker in watch mode
 
 ### Environment variables
 
+`backend/.env.example` lists the variables the API validates today (`config/env.js`); copy it to `backend/.env`. The full set, as features are added:
+
 ```bash
 # Core
 NODE_ENV=development
 PORT=3000
-WEB_URL=http://localhost:5173
-MONGODB_URI=mongodb://localhost:27017/oroom
+CLIENT_URL=http://localhost:5173
+MONGO_URI=mongodb+srv://...
+MONGO_DB_NAME=oroom
 REDIS_URL=redis://localhost:6379
-SESSION_SECRET=
 ENCRYPTION_KEY=            # 32-byte base64, used for AES-256-GCM on tokens and feed URLs
 
-# Google
+# Auth (Clerk)
+CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+CLERK_WEBHOOK_SIGNING_SECRET=   # dev: point the Clerk endpoint at an ngrok URL
+
+# Google Calendar connector (OAuth for calendar access, not sign-in)
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=http://localhost:3000/api/v1/auth/google/callback
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/v1/connections/google/callback
 GOOGLE_WEBHOOK_URL=        # public URL for calendar push (use a tunnel like ngrok in dev)
 
 # AI
@@ -171,7 +181,7 @@ POSTHOG_KEY=
 
 | Collection | Purpose |
 | --- | --- |
-| `users` | Profile, timezone, working hours, plan, Stripe customer |
+| `users` | Clerk ID, profile, timezone, working hours, plan, Stripe customer |
 | `connections` | Connected sources, mode (`ask`/`auto`), encrypted tokens or feed URL, sync cursor |
 | `sourceItems` | Raw items from sources, keyed by `externalId`, with `rawHash` for change detection |
 | `suggestions` | Found tasks awaiting approval (`pending`, `approved`, `skipped`) |
@@ -188,11 +198,11 @@ Every document has `userId`, and every index starts with it.
 
 ## API overview
 
-Base path: `/api/v1`. JSON, session cookie auth, Zod-validated bodies, errors as `{ error: { code, message, details } }`, cursor pagination (`?cursor=&limit=`).
+Base path: `/api/v1`. JSON, Clerk bearer-token auth (`Authorization: Bearer <token>`), Zod-validated bodies, errors as `{ error: { code, message, details } }`, cursor pagination (`?cursor=&limit=`).
 
-- **Auth:** `GET /auth/google`, `GET /auth/google/callback`, `POST /auth/logout`
+- **Auth:** handled by Clerk on the frontend (sign-in, sign-up, sign-out); no API auth routes
 - **Me:** `GET /me`, `PATCH /me`
-- **Connections:** `GET /connections`, `POST /connections/brightspace`, `PATCH /connections/:id`, `DELETE /connections/:id`, `POST /connections/:id/sync`
+- **Connections:** `GET /connections`, `GET /connections/google` + `GET /connections/google/callback` (Calendar OAuth), `POST /connections/brightspace`, `PATCH /connections/:id`, `DELETE /connections/:id`, `POST /connections/:id/sync`
 - **Suggestions:** `GET /suggestions?status=pending`, `POST /suggestions/:id/approve`, `POST /suggestions/:id/skip`
 - **Tasks:** `GET|POST /tasks`, `PATCH|DELETE /tasks/:id`
 - **Day view:** `GET /today?date=`
@@ -201,7 +211,7 @@ Base path: `/api/v1`. JSON, session cookie auth, Zod-validated bodies, errors as
 - **Activity:** `GET /activity?since=`
 - **Billing:** `POST /billing/checkout`, `POST /billing/portal`
 - **Live:** `GET /events` (SSE)
-- **Webhooks:** `POST /webhooks/stripe`, `POST /webhooks/inbound-email`, `POST /webhooks/google-calendar`
+- **Webhooks** (mounted at `/webhooks`, outside `/api/v1`): `POST /webhooks/clerk` ✅, `POST /webhooks/stripe`, `POST /webhooks/inbound-email`, `POST /webhooks/google-calendar`
 
 ---
 
@@ -238,8 +248,9 @@ Base path: `/api/v1`. JSON, session cookie auth, Zod-validated bodies, errors as
 - [ ] Monorepo, Docker Compose, ESLint, Prettier
 - [ ] GitHub Actions CI
 - [ ] Express skeleton: errors, Zod, Pino, Sentry, health check
-- [ ] Mongoose models and indexes
-- [ ] Google OAuth, encrypted tokens, refresh
+- [x] Mongoose models and indexes
+- [x] Clerk auth: `requireAuth`, user sync webhook, first-request fallback
+- [ ] Google Calendar connection: OAuth, encrypted tokens, refresh
 - [ ] Tasks CRUD + Postman/Newman
 - [ ] Google Calendar sync (full, incremental, push)
 - [ ] Brightspace iCal import + repeatable sync + ingestion pipeline (rules only)
